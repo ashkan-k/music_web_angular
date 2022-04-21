@@ -1,0 +1,7 @@
+.nav-link:hover{
+    cursor: pointer !important;
+}
+
+.nav-item-width{
+    width: 100% !important;
+}

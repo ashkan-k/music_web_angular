@@ -1,0 +1,99 @@
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">داشبورد</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-left">
+          <li class="breadcrumb-item"><a [routerLink]="'/admin'">خانه</a></li>
+          <li class="breadcrumb-item active">داشبورد سایت انگولار موزیک</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>{{ statistics_info['albums_count'] }}</h3>
+
+            <p>تعداد آلبوم ها</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-ios-play"></i>
+          </div>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+          <div class="inner">
+<!--            <h3>53<sup style="font-size: 20px">%</sup></h3>-->
+            <h3>{{ statistics_info['tracks_count'] }}</h3>
+
+            <p>تعداد آهنگ ها</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-music-note"></i>
+          </div>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>{{ statistics_info['singers_count'] }}</h3>
+
+            <p>تعداد هنرمندان</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-headphone"></i>
+          </div>
+        </div>
+      </div>
+      <!-- ./col -->
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{ statistics_info['users_count'] }}</h3>
+
+            <p>کاربران ثبت شده</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-primary">
+          <div class="inner">
+            <h3>{{ statistics_info['subscribers_count'] }}</h3>
+
+            <p>مشترکین ویژه</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+</section>
+<!-- /.content -->

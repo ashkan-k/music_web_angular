@@ -1,0 +1,102 @@
+<section class="content-header" *ngIf="user_service.user_data['is_superuser']">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>پروفایل</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-left">
+          <li class="breadcrumb-item"><a [routerLink]="'/admin'">خانه</a></li>
+          <li class="breadcrumb-item active">پروفایل</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content mr-2 ml-2">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-12" *ngIf="data.subscription">
+        <div class="card">
+          <h3 class="mt-3 text-center">اطلاعات اشتراک</h3>
+          <hr>
+          <div class="row mr-2">
+            <div class="col-4">
+              <p class="text-wrap">نوع اشتراک : <span>{{data['subscription']['subscription']['name']}} ({{data['subscription']['subscription']['expire_time']}} ماهه)</span></p>
+            </div>
+
+            <div class="col-4">
+              <p class="text-wrap">وضعیت : <span style="font-size: 15px;" class="badge badge-{{ ShowSubscriptionActiveClass(data['subscription']['is_active']) }}">{{ ShowSubscriptionActive(data['subscription']['is_active']) }}</span></p>
+            </div>
+
+            <div class="col-4">
+              <p class="text-wrap">تاریخ انقضا : <span>{{data['subscription']['expire_date']}}</span></p>
+            </div>
+
+            <div class="col-12 text-center">
+              <div class="mt-5 mb-3">
+                <button type="submit" (click)="Subscription()" class="btn btn-info">{{ data['subscription']['is_active'] ? 'تعویض اشتراک' : 'خرید اشتراک' }}</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-12 mt-3">
+        <div class="card">
+          <div class="card-header">
+
+            <form (ngSubmit)="Submit()" id="form" enctype="multipart/form-data">
+
+              <label class="form-label mt-4" for="first_name">نام:</label>
+              <input id="first_name" name="first_name" [(ngModel)]="data.first_name" type="text" class="form-control">
+
+              <label class="form-label mt-4" for="last_name">نام خانوادگی:</label>
+              <input id="last_name" name="last_name" [(ngModel)]="data.last_name" type="text" class="form-control">
+
+              <label class="form-label mt-4" for="email">ایمیل:</label>
+              <input id="email" name="email" [(ngModel)]="data.email" type="email" class="form-control">
+
+              <label class="form-label mt-4" for="phone">شماره موبایل:</label>
+              <input id="phone" name="phone" minlength="11" maxlength="11" [(ngModel)]="data.phone" type="text"
+                     class="form-control">
+
+              <label class="form-label mt-4" for="password">رمز عبور:</label>
+              <input id="password" name="password" minlength="8" [(ngModel)]="data.password" type="text"
+                     class="form-control">
+
+              <label class="form-label mt-4" for="rep_password">تکرار رمز عبور:</label>
+              <input id="rep_password" name="rep_password" minlength="8" [(ngModel)]="data.rep_password" type="text"
+                     class="form-control">
+
+              <label class="form-label mt-4" for="avatar">آواتار:</label>
+              <input id="avatar" name="avatar" (change)="handleFileInput($event)" type="file" class="form-control">
+
+              <div *ngIf="data.id && data.avatar" class="form-control">
+                <p>عکس قبلی:</p>
+                <i (click)="RemoveImage()" class="fa fa-close text-danger ml-2" style="cursor: pointer"></i>
+                <img src="{{ ShowUserAvatar(data.avatar) }}" width="100" alt="">
+              </div>
+
+              <div class="mt-5">
+                <button type="submit" class="btn btn-info pull-left mr-2">ذخیره</button>
+                <button type="button" onclick="window.location.href='/admin'" class="btn btn-danger pull-left"
+                        data-dismiss="modal">بازگشت
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+
+    <ngx-loading [show]="loading"></ngx-loading>
+
+  </div>
+</section>

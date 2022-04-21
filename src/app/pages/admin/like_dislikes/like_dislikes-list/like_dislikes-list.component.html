@@ -1,0 +1,111 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>لایک/دیس لایک</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-left">
+          <li class="breadcrumb-item"><a [routerLink]="'/admin'">خانه</a></li>
+          <li class="breadcrumb-item active">لایک ها</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content mr-2 ml-2">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">لایک/دیس لایک</h3>
+
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text"  [(ngModel)]="search" (input)="GetLikeDislikes()" name="table_search" class="form-control float-right" placeholder="جستجو">
+
+                <div class="input-group-append">
+                  <button type="button" (click)="GetLikeDislikes()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-tools d-none d-md-block" style="left: 200px!important; right: auto!important;">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <select [(ngModel)]="type_filter" (change)="GetLikeDislikes()" class="form-control">
+                  <option value="">همه</option>
+                  <option value="LIKE">لایک ها</option>
+                  <option value="DISLIKE">دیس لایک ها</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover">
+              <tbody>
+
+              <tr>
+                <th>ردیف</th>
+                <th>کاربر</th>
+                <th>نوع</th>
+                <th>ثبت شده برای</th>
+                <th>تاریخ ثبت</th>
+                <th>عملیات</th>
+              </tr>
+
+
+              <tr *ngFor="let item of like_dislikes; let index = index">
+                   <td>
+                  <input type="checkbox" (change)="bulk_child.AddItemsToBulkAction(item.id,$event)" [checked]="bulk_child.bulk_action_items.includes(item.id)" class="ml-2">                  {{ index + 1 }}
+                </td>
+
+                <td>{{ item.user_data.first_name + '  ' + item.user_data.last_name}}</td>
+
+                <td>
+                    <span class="badge badge-{{ item.type_info.color }}">
+                      {{ item.type_info.display }}
+                    </span>
+                </td>
+
+                <td>
+                    <span class="badge badge-{{ item.like_dislike_model.color }}">
+                      {{ item.like_dislike_model.display }}
+                    </span>
+                </td>
+
+                <td>{{ item.created_at }}</td>
+
+                <td>
+                  <a (click)="DeleteConfirm(item.id)"
+                     class="btn btn-danger btn-action mr-1"
+                     data-toggle="tooltip" title="حذف"
+                     data-original-title="حذف"><i
+                    class="fas fa-pencil-alt"></i><i
+                    class="fa fa-trash"> </i> </a>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+
+            <app-bulk-actions [model]="'LikeDislike'" [AllowedActions]="[['delete', 'حذف کردن']]" [data]="like_dislikes" (GetDataEvent)="GetLikeDislikes()"></app-bulk-actions>
+
+          </div>
+
+          <app-pagination [meta_data]="meta_data" (GetPaginatedData)="GetLikeDislikes($event)"></app-pagination>
+
+          <ngx-loading [show]="loading"></ngx-loading>
+
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+  </div>
+</section>

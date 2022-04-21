@@ -1,0 +1,189 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>کاربران</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-left">
+          <li class="breadcrumb-item"><a [routerLink]="'/admin'">خانه</a></li>
+          <li class="breadcrumb-item active">کاربران</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content mr-2 ml-2">
+  <div class="container-fluid">
+
+    <div class="row">
+      <button type="button" class="btn btn-block btn-primary btn-sm col-4 col-lg-2 mb-3 mr-2" data-toggle="modal" data-target="#exampleModalCenter">کاربر جدید</button>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">کاربران</h3>
+
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text"  [(ngModel)]="search" (input)="GetUsers()" name="table_search" class="form-control float-right" placeholder="جستجو">
+
+                <div class="input-group-append">
+                  <button type="button" (click)="GetUsers()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover">
+              <tbody>
+
+              <tr>
+                <th>ردیف</th>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>ایمیل</th>
+                <th>شماره موبایل</th>
+                <th>عکس</th>
+                <th>تاریخ ثبت نام</th>
+                <th>عملیات</th>
+              </tr>
+
+
+              <tr *ngFor="let item of users; let index = index">
+                <td>
+                  <input type="checkbox" (change)="bulk_child.AddItemsToBulkAction(item.id,$event)" [checked]="bulk_child.bulk_action_items.includes(item.id)" class="ml-2">                  {{ index + 1 }}
+                </td>
+
+                <td>{{ item.first_name }}</td>
+
+                <td>{{ item.last_name }}</td>
+
+                <td>{{ item.email }}</td>
+
+                <td>{{ item.phone ?? '---' }}</td>
+
+                <td><img width="40" [src]="ShowUserAvatar(item.avatar)"></td>
+
+                <td>{{ item.created_at }}</td>
+
+                <td>
+                  <a (click)="UnBlock(item.id)"
+                     class="btn btn-success btn-action mr-1"
+                     data-toggle="tooltip" title="آزاد سازی"
+                     data-original-title="آزاد سازی"><i
+                    class="fa fa-unlock"> </i> </a>
+
+                  <a (click)="Get(item.id)"
+                     class="btn btn-primary btn-action mr-1"
+                     data-toggle="tooltip" title="ویرایش"
+                     data-original-title="ویرایش"><i
+                    class="fas fa-pencil-alt"></i><i
+                    class="fa fa-pencil"> </i> </a>
+
+                  <a (click)="DeleteConfirm(item.id)"
+                     class="btn btn-danger btn-action mr-1"
+                     data-toggle="tooltip" title="حذف"
+                     data-original-title="حذف"><i
+                    class="fas fa-pencil-alt"></i><i
+                    class="fa fa-trash"> </i> </a>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+            <app-bulk-actions [model]="'User'" [AllowedActions]="[['delete', 'حذف کردن'], ['unblock', 'آزادسازی']]" [data]="users" (GetDataEvent)="GetUsers()"></app-bulk-actions>
+
+          </div>
+
+          <user-modal-form (closeModalEvent)="GetUsers()" [data]="data"></user-modal-form>
+
+          <div class="card-tools text-center pagination_div" *ngIf="GetPages().length > 1">
+            <ul class="pagination pagination-sm m-0 float-right">
+              <li [class.disabled]="page == 1" (click)="page != 1 && GetUsers(page - 1)"
+                  class="page-item"><a class="page-link">«</a></li>
+
+              <li (click)="page != index + 1 && GetUsers(index + 1)" *ngFor="let item of GetPages(); let index = index" class="page-item"
+                  [class.active]="page == index + 1"><a class="page-link">{{ index + 1 }}</a></li>
+
+              <li [class.disabled]="last_page == page"
+                  (click)="last_page != page && GetUsers(page + 1)" class="page-item"><a
+                class="page-link">»</a></li>
+            </ul>
+          </div>
+
+
+          <ngx-loading [show]="loading"></ngx-loading>
+
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!--<section class="content-header">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="row mb-2">-->
+<!--      <div class="col-sm-6">-->
+<!--        <h1>کاربران</h1>-->
+<!--      </div>-->
+<!--      <div class="col-sm-6">-->
+<!--        <ol class="breadcrumb float-sm-left">-->
+<!--          <li class="breadcrumb-item"><a [routerLink]="'/admin'">خانه</a></li>-->
+<!--          <li class="breadcrumb-item active">کاربران</li>-->
+<!--        </ol>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+<!--</section>-->
+
+<!--<section class="content">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="row">-->
+<!--      <div class="col-md-12">-->
+<!--        &lt;!&ndash; Horizontal Form &ndash;&gt;-->
+<!--        <div class="card card-info">-->
+<!--          <div class="card-header">-->
+<!--            <h3 class="card-title">کاربر جدید</h3>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; /.card-header &ndash;&gt;-->
+<!--          &lt;!&ndash; form start &ndash;&gt;-->
+<!--          <form class="form-horizontal">-->
+<!--            <div class="card-body">-->
+
+<!--              <div class="form-group">-->
+<!--                <label for="inputEmail3" class="col-sm-2 control-label">ایمیل</label>-->
+
+<!--                <div class="col-12">-->
+<!--                  <input type="email" class="form-control" id="inputEmail3" placeholder="ایمیل را وارد کنید">-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="form-group">-->
+<!--                <label for="inputPassword3" class="col-sm-2 control-label">پسورد</label>-->
+
+<!--                <div class="col-12">-->
+<!--                  <input type="password" class="form-control" id="inputPassword3" placeholder="پسورد را وارد کنید">-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--            </div>-->
+<!--            &lt;!&ndash; /.card-body &ndash;&gt;-->
+<!--            <div class="card-footer">-->
+<!--              <button type="submit" class="btn btn-info">ورود</button>-->
+<!--              <button type="submit" class="btn btn-default float-left">لغو</button>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; /.card-footer &ndash;&gt;-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; /.row &ndash;&gt;-->
+<!--  </div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+<!--</section>-->

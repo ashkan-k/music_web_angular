@@ -1,0 +1,13 @@
+<div class="card-tools text-center pagination_div" *ngIf="GetPages().length > 1">
+  <ul class="pagination pagination-sm m-0 float-right">
+    <li [class.disabled]="current_page_number == 1" (click)="current_page_number != 1 && GetData(GetPrevPage())"
+        class="page-item"><a class="page-link">«</a></li>
+
+    <li (click)="current_page_number != index + 1 && GetData(index + 1)" *ngFor="let item of GetPages(); let index = index" class="page-item"
+        [class.active]="current_page_number == index + 1"><a class="page-link">{{ index + 1 }}</a></li>
+
+    <li [class.disabled]="pages_count == current_page_number"
+        (click)="pages_count != current_page_number && GetData(GetNextPage())" class="page-item"><a
+      class="page-link">»</a></li>
+  </ul>
+</div>

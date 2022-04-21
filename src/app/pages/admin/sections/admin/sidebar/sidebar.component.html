@@ -1,0 +1,389 @@
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a [routerLink]="'/admin'" class="nav-link">خانه</a>
+    </li>
+  </ul>
+
+  <!-- SEARCH FORM -->
+  <form class="form-inline ml-3">
+    <div class="input-group input-group-sm">
+      <input class="form-control form-control-navbar" type="search" placeholder="جستجو" aria-label="Search">
+      <div class="input-group-append">
+        <button class="btn btn-navbar" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Right navbar links -->
+  <ul class="navbar-nav mr-auto">
+    <!-- Messages Dropdown Menu -->
+    <li class="nav-item dropdown" style="cursor: pointer">
+      <a class="nav-link" data-toggle="dropdown" (click)="user_provider.Logout()">
+        <i class="fa fa-sign-out"></i>
+        <!--        <span class="badge badge-danger navbar-badge">خروج</span>-->
+      </a>
+    </li>
+  </ul>
+</nav>
+<!-- /.navbar -->
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a href="/" class="brand-link">
+    <img src="/{{ this.global_properties.SETTINGS['LOGO']}}" alt="AdminLTE Logo"
+         class="brand-image img-circle elevation-3"
+         style="opacity: .8">
+    <span class="brand-text font-weight-light">پنل مدیریت</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar" style="direction: ltr">
+    <div style="direction: rtl">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img [src]="ShowUserImage()" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a [routerLink]="['/admin/profile']"
+             class="d-block">{{ user_provider.user_data['first_name'] + ' ' + user_provider.user_data['last_name'] }}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item" *ngIf="user_provider.user_data['is_superuser']">
+            <a [routerLink]="['/admin']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+               class="nav-link">
+              <i class="nav-icon fa fa-dashboard"></i>
+              <p>
+                داشبورد
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a [routerLink]="['/admin/profile']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+               class="nav-link">
+              <i class="nav-icon fa fa-user-circle-o"></i>
+              <p>
+                پروفایل
+              </p>
+            </a>
+          </li>
+
+          <ul *ngIf="user_provider.user_data['is_superuser']">
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#users-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-user"></i>
+                <p>
+                  کاربران
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-sidebar collapse" id="users-nav">
+                <li class="nav-item nav-item-width">
+                  <a [routerLink]="['/admin/users']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                     class="nav-link">
+                    <i class="fa fa-circle-o nav-icon"></i>
+                    <p>لیست کاربران</p>
+                  </a>
+                </li>
+
+                <li class="nav-item nav-item-width">
+                  <a [routerLink]="['/admin/blocked/users']" routerLinkActive="active"
+                     [routerLinkActiveOptions]="{exact:true}"
+                     class="nav-link">
+                    <i class="fa fa-circle-o nav-icon"></i>
+                    <p>لیست کاربران مسدود</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#singers-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-headphones"></i>
+                <p>
+                  هنرمندان
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="singers-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/singers']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست هنرمندان</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#albums-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-play"></i>
+                <p>
+                  آلبوم ها
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="albums-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/albums']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست آلبوم ها</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#tracks-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-music"></i>
+                <p>
+                  آهنگ ها
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="tracks-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/tracks']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست آهنگ ها</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#genres-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-list-alt"></i>
+                <p>
+                  ژانرها (سبک ها)
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="genres-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/genres']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست ژانر ها</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#comments-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-comment"></i>
+                <p>
+                  نظرات
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="comments-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/comments']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست نظرات</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#likes-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-thumbs-up"></i>
+                <p>
+                  لایک/دیسلایک
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="likes-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/like_dislikes']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست لایک/دیسلایک</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#wish_lists-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-heart"></i>
+                <p>
+                  علاقه مندی ها
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="wish_lists-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/wish_lists']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست علاقه مندی ها</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#uploads-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-upload"></i>
+                <p>
+                  آپلود ها
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="uploads-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/uploads']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست آپلود ها</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#subscriptions-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-rocket"></i>
+                <p>
+                  پنل اشتراک ویژه
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="subscriptions-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/subscriptions']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست پنل اشتراک ویژه</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#subscribers-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-users"></i>
+                <p>
+                  مشترکین ویژه
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="subscribers-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/subscribers']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست مشترکین ویژه</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#transactions-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-paypal"></i>
+                <p>
+                  تراکنش ها
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="transactions-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/transactions']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست تراکنش ها</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="nav-item nav-item nav-item-submenu">
+              <a href="#settings-nav" class="nav-link legitRipple" data-toggle="collapse">
+                <i class="ml-2 nav-icon fa fa-cog"></i>
+                <p>
+                  تنظیمات
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <div class="collapse" id="settings-nav">
+                <ul class="nav nav-sidebar">
+                  <li class="nav-item nav-item-width">
+                    <a [routerLink]="['/admin/settings']" routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       class="nav-link">
+                      <i class="fa fa-circle-o nav-icon"></i>
+                      <p>لیست تنظیمات</p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+          </ul>
+
+          <!--          #####################################################################################-->
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+  </div>
+  <!-- /.sidebar -->
+</aside>

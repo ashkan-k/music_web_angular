@@ -1,0 +1,31 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; margin: 0 auto!important;" role="document">
+
+    <div class="modal-content" style="height: auto!important;">
+
+      <div class="modal-header" style="width: 100%!important;">
+        <h5 class="modal-title" id="exampleModalCenterTitle">جزییات تراکنش</h5>
+        <button type="button" class="close" style="position: absolute!important;left: 0!important;"
+                data-dismiss="modal"
+                aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <label class="form-label">کد پیگیری:</label>
+          <input id="refID" readonly value="{{ data.refID }}" class="form-control mr-2">
+          <div class="input-group-prepend mr-2">
+            <button data-clipboard-target="#refID"
+                    data-image_preview_id="copy_button"
+                    class="btn btn-info mr-1" id="copy_button" type="button">کپی</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<!--<div class="login-box">-->
+<!--  <div class="login-logo">-->
+<!--    <a><b>ورود به سایت</b></a>-->
+<!--  </div>-->
+<!--  &lt;!&ndash; /.login-logo &ndash;&gt;-->
+<!--  <div class="card">-->
+<!--    <div class="card-body login-card-body">-->
+<!--      <p class="login-box-msg">فرم زیر را تکمیل کنید و ورود بزنید</p>-->
+
+<!--      <form [formGroup]="form" (ngSubmit)="Login()" method="post">-->
+<!--        <div class="input-group mb-3">-->
+<!--          <input type="email" class="form-control" name="email" placeholder="ایمیل" formControlName="email">-->
+<!--          <div class="input-group-append">-->
+<!--            <span class="fa fa-envelope input-group-text"></span>-->
+<!--          </div>-->
+
+<!--          <div class="col-12 text-center mt-2" *ngIf="form.get('email')?.touched">-->
+<!--            <span *ngIf="form.get('email')?.getError('required')" style="color: red;">ایمیل اجباری است!</span>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="input-group mb-3">-->
+<!--          <input type="password" class="form-control" placeholder="رمز عبور" name="password" formControlName="password">-->
+<!--          <div class="input-group-append">-->
+<!--            <span class="fa fa-lock input-group-text"></span>-->
+<!--          </div>-->
+
+<!--          <div class="col-12 text-center mt-2" *ngIf="form.get('password')?.touched">-->
+<!--                  <span *ngIf="form.get('password')?.getError('required')"-->
+<!--                        style="color: red;">رمز عبور اجباری است!</span>-->
+<!--            <span *ngIf="form.get('password')?.getError('minlength')" style="color: red;">رمز عبور باید حداقل 8 کاراکتر باشد!</span>-->
+<!--          </div>-->
+
+<!--        </div>-->
+
+<!--        <div class="row">-->
+<!--          <div class="col-8">-->
+<!--            <div class="checkbox icheck">-->
+<!--              <label>-->
+<!--                <input type="checkbox" formControlName="remember_me"> مرا بخاطر بسپار-->
+<!--              </label>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; /.col &ndash;&gt;-->
+<!--          <div class="col-12">-->
+<!--            <button type="submit" class="btn btn-primary btn-block btn-flat">ورود</button>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; /.col &ndash;&gt;-->
+<!--        </div>-->
+<!--      </form>-->
+
+<!--      <div class="social-auth-links text-center mb-3">-->
+<!--        <a href="#" class="btn btn-block btn-danger">-->
+<!--          <i class="fa fa-google-plus mr-2"></i> ورود با اکانت گوگل-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      &lt;!&ndash; /.social-auth-links &ndash;&gt;-->
+
+<!--      <p class="mb-1">-->
+<!--        <a [routerLink]="['/reset/password']">رمز عبورم را فراموش کرده ام.</a>-->
+<!--      </p>-->
+<!--      <p class="mb-0">-->
+<!--        <a [routerLink]="['/register']" class="text-center">ثبت نام</a>-->
+<!--      </p>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; /.login-card-body &ndash;&gt;-->
+
+<!--     <ngx-loading [show]="loading"></ngx-loading>-->
+<!--  </div>-->
+<!--</div>-->

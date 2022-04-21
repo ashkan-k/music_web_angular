@@ -1,0 +1,119 @@
+<div class="login-box">
+  <div class="login-logo">
+    <a><b>ثبت نام در سایت</b></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">فرم زیر را تکمیل کنید و ثبت نام بزنید</p>
+
+      <form [formGroup]="form" (ngSubmit)="Register()" method="post">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" name="first_name" placeholder="نام" formControlName="first_name">
+          <div class="input-group-append">
+            <span class="fa fa-user input-group-text"></span>
+          </div>
+
+          <div class="col-12 text-center mt-2" *ngIf="form.get('first_name')?.touched">
+            <span *ngIf="form.get('first_name')?.getError('required')" style="color: red;">نام اجباری است!</span>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" name="last_name" placeholder="نام خانوادگی" formControlName="last_name">
+          <div class="input-group-append">
+            <span class="fa fa-user input-group-text"></span>
+          </div>
+
+          <div class="col-12 text-center mt-2" *ngIf="form.get('last_name')?.touched">
+            <span *ngIf="form.get('last_name')?.getError('required')" style="color: red;">نام خانوادگی اجباری است!</span>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" minlength="11" maxlength="11" name="phone" placeholder="شماره موبایل" formControlName="phone">
+          <div class="input-group-append">
+            <span class="fa fa-user input-group-text"></span>
+          </div>
+
+          <div class="col-12 text-center mt-2" *ngIf="form.get('phone')?.touched">
+            <span *ngIf="form.get('phone')?.getError('required')" style="color: red;">شماره موبایل اجباری است!</span>
+            <span *ngIf="form.get('password')?.getError('minlength')" style="color: red;">شماره موبایل باید حداقل 11 کاراکتر باشد!</span>
+            <span *ngIf="form.get('password')?.getError('maxlength')" style="color: red;">شماره موبایل باید حداکثر 11 کاراکتر باشد!</span>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" name="email" placeholder="ایمیل" formControlName="email">
+          <div class="input-group-append">
+            <span class="fa fa-envelope input-group-text"></span>
+          </div>
+
+          <div class="col-12 text-center mt-2" *ngIf="form.get('email')?.touched">
+            <span *ngIf="form.get('email')?.getError('required')" style="color: red;">ایمیل اجباری است!</span>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="رمز عبور" name="password" formControlName="password">
+          <div class="input-group-append">
+            <span class="fa fa-lock input-group-text"></span>
+          </div>
+
+          <div class="col-12 text-center mt-2" *ngIf="form.get('password')?.touched">
+                  <span *ngIf="form.get('password')?.getError('required')"
+                        style="color: red;">رمز عبور اجباری است!</span>
+            <span *ngIf="form.get('password')?.getError('minlength')" style="color: red;">رمز عبور باید حداقل 8 کاراکتر باشد!</span>
+          </div>
+
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="تکرار رمز عبور" name="password_confirmed" formControlName="password_confirmed">
+          <div class="input-group-append">
+            <span class="fa fa-lock input-group-text"></span>
+          </div>
+
+          <div class="col-12 text-center mt-2" *ngIf="form.get('password_confirmed')?.touched">
+                  <span *ngIf="form.get('password_confirmed')?.getError('required')"
+                        style="color: red;">تکرار رمز عبور اجباری است!</span>
+            <span *ngIf="form.get('password_confirmed')?.getError('minlength')" style="color: red;">تکرار رمز عبور باید حداقل 8 کاراکتر باشد!</span>
+          </div>
+
+        </div>
+
+        <div class="row">
+<!--          <div class="col-8">-->
+<!--            <div class="checkbox icheck">-->
+<!--              <label>-->
+<!--                <input type="checkbox" formControlName="remember_me"> مرا بخاطر بسپار-->
+<!--              </label>-->
+<!--            </div>-->
+<!--          </div>-->
+          <!-- /.col -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">ثبت نام</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <div class="social-auth-links text-center mb-3">
+        <a [href]="global_properties.BASE_YRL + '/admin/auth/google'" class="btn btn-block btn-danger">
+          <i class="fa fa-google-plus mr-2"></i> ورود با اکانت گوگل
+        </a>
+      </div>
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="#">رمز عبورم را فراموش کرده ام.</a>
+      </p>
+      <p class="mb-0">
+        <a [routerLink]="['/admin/login']" class="text-center">ورود</a>
+      </p>
+    </div>
+    <!-- /.login-card-body -->
+
+     <ngx-loading [show]="loading"></ngx-loading>
+  </div>
+</div>

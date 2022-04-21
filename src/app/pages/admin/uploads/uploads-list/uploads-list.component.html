@@ -1,0 +1,112 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>آپلود ها</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-left">
+          <li class="breadcrumb-item"><a [routerLink]="'/admin'">خانه</a></li>
+          <li class="breadcrumb-item active">آپلود ها</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<section class="content mr-2 ml-2">
+  <div class="container-fluid">
+
+    <div class="row">
+      <button type="button" class="btn btn-block btn-primary btn-sm col-4 col-lg-2 mb-3 mr-2" data-toggle="modal" data-target="#exampleModalCenter">آپلود جدید</button>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">آپلود ها</h3>
+
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" [(ngModel)]="search" (input)="GetUploads()" name="table_search" class="form-control float-right" placeholder="جستجو">
+
+                <div class="input-group-append">
+                  <button type="button" (click)="GetUploads()" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover">
+              <tbody>
+              <tr>
+                <th>ردیف</th>
+                <th>کاربر</th>
+                <th>فایل</th>
+                <th>تاریخ ثبت</th>
+                <th>عملیات</th>
+              </tr>
+
+              <tr *ngFor="let item of uploads; let index = index">
+                <td>
+                  <input type="checkbox" (change)="bulk_child.AddItemsToBulkAction(item.id,$event)" [checked]="bulk_child.bulk_action_items.includes(item.id)" class="ml-2">
+                  {{ index + 1 }}</td>
+
+                <td>{{ item.user_data.first_name + '  ' + item.user_data.last_name}}</td>
+
+                <td>{{ ShowFile(item.file) | truncate:[60] }}</td>
+
+                <td>{{ item.created_at }}</td>
+
+                <td>
+                  <a (click)="ShowFileUrlInModal(item.file)"
+                     class="btn btn-warning btn-action mr-1"
+                     data-toggle="tooltip" title="نمایش لینک فایل"
+                     data-original-title="نمایش لینک فایل"><i
+                    class="fa fa-eye"> </i> </a>
+
+                  <a (click)="DownloadFile(item.file)"
+                     class="btn btn-info btn-action mr-1"
+                     data-toggle="tooltip" title="دانلود"
+                     data-original-title="دانلود"><i
+                    class="fa fa-download"> </i> </a>
+
+                  <a (click)="Get(item.id)"
+                     class="btn btn-primary btn-action mr-1"
+                     data-toggle="tooltip" title="ویرایش"
+                     data-original-title="ویرایش"><i
+                    class="fas fa-pencil-alt"></i><i
+                    class="fa fa-pencil"> </i> </a>
+
+                  <a (click)="DeleteConfirm(item.id)"
+                     class="btn btn-danger btn-action mr-1"
+                     data-toggle="tooltip" title="حذف"
+                     data-original-title="حذف"><i
+                    class="fas fa-pencil-alt"></i><i
+                    class="fa fa-trash"> </i> </a>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+
+            <app-bulk-actions [model]="'Upload'" [AllowedActions]="[['delete', 'حذف کردن']]" [data]="uploads" (GetDataEvent)="GetUploads()"></app-bulk-actions>
+
+          </div>
+
+          <upload-show-modal [file_url]="file_url"></upload-show-modal>
+          <upload-modal-form (closeModalEvent)="GetUploads()" [data]="data"></upload-modal-form>
+
+          <app-pagination [meta_data]="meta_data" (GetPaginatedData)="GetUploads($event)"></app-pagination>
+
+          <ngx-loading [show]="loading"></ngx-loading>
+
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+  </div>
+</section>

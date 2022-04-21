@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+
+.example-modal .modal {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  right: auto;
+  left: auto;
+  display: block;
+  z-index: 1;
+}
+
+.example-modal .modal {
+  background: transparent !important;
+}
+
+.modal {
+  margin-top: 100px !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .modal {
+    margin-right: 150px !important;
+  }
+}
+
+/* Important part */
+.modal-dialog {
+  overflow-y: initial !important
+}
+
+.modal-content {
+  height: 80vh;
+  overflow-y: auto;
+}

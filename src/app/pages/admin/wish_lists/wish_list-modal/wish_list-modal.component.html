@@ -1,0 +1,51 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+  <form (ngSubmit)="Submit()" id="form" enctype="multipart/form-data">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; margin: 0 auto!important;" role="document">
+
+      <div class="modal-content">
+
+        <div class="modal-header" style="width: 100%!important;">
+          <h5 class="modal-title" id="exampleModalCenterTitle">افزودن علاقه مندی</h5>
+          <button type="button" class="close" style="position: absolute!important;left: 0!important;"
+                  data-dismiss="modal"
+                  aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="album_id">کاربر:</label>
+          <select class="form-control select2" id="album_id" name="album_id" [(ngModel)]="data.user_id"  style="width: 100%;">
+            <option value="">بدون کاربر</option>
+            <option *ngFor="let item of users" [value]="item.id">{{item.first_name + ' ' + item.last_name}}</option>
+          </select>
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="is_vip">مدل علاقه مندی :</label>
+          <select class="form-control" id="wish_listable_type" name="wish_listable_type" (change)="GetWishListModel()" [(ngModel)]="data.wish_listable_type">
+            <option [value]="'App\\Models\\Album'">آلبوم</option>
+            <option [value]="'App\\Models\\Track'">آهنگ</option>
+          </select>
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="wish_listable_id">اضافه شود به علاقه مندی:</label>
+          <select class="form-control select2" id="wish_listable_id" name="wish_listable_id" [(ngModel)]="data.wish_listable_id"  style="width: 100%;">
+            <option value="">انتخاب کنید</option>
+            <option *ngFor="let item of wish_listable_ids" [value]="item.id">{{item.name}}</option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" (click)="CloseAndClearModal(false)" class="btn btn-danger" data-dismiss="modal">لغو</button>
+          &nbsp; &nbsp;
+          <button type="submit" class="btn btn-info">ذخیره</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ngx-loading [show]="loading"></ngx-loading>
+</div>

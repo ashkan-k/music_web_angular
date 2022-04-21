@@ -1,0 +1,68 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+  <form (ngSubmit)="Submit()" id="form" enctype="multipart/form-data">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 70%; margin: 0 auto!important;" role="document">
+
+      <div class="modal-content">
+
+        <div class="modal-header" style="width: 100%!important;">
+          <h5 class="modal-title" id="exampleModalCenterTitle">افزودن کاربر</h5>
+          <button type="button" class="close" style="position: absolute!important;left: 0!important;"
+                  data-dismiss="modal"
+                  aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="first_name">نام:</label>
+          <input id="first_name" name="first_name" [(ngModel)]="data.first_name" type="text" class="form-control">
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="last_name">نام خانوادگی:</label>
+          <input id="last_name" name="last_name" [(ngModel)]="data.last_name" type="text" class="form-control">
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="email">ایمیل:</label>
+          <input id="email" name="email" [(ngModel)]="data.email" type="email" class="form-control">
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="phone">شماره موبایل:</label>
+          <input id="phone" name="phone" minlength="11" maxlength="11" [(ngModel)]="data.phone" type="text" class="form-control">
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="password">رمز عبور:</label>
+          <input id="password" name="password" minlength="8" [(ngModel)]="data.password" type="text" class="form-control">
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="rep_password">تکرار رمز عبور:</label>
+          <input id="rep_password" name="rep_password" minlength="8" [(ngModel)]="data.rep_password" type="text" class="form-control">
+        </div>
+
+        <div class="modal-body">
+          <label class="form-label" for="avatar">آواتار:</label>
+          <input id="avatar" name="avatar" (change)="handleFileInput($event)" type="file" class="form-control">
+        </div>
+
+        <div *ngIf="data.id && data.avatar" class="modal-body">
+          <p>عکس قبلی:</p>
+          <i (click)="RemoveImage()" class="fa fa-close text-danger ml-2" style="cursor: pointer"></i>
+          <img src="{{ ShowUserAvatar(data.avatar) }}" width="100" alt="">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" (click)="CloseAndClearModal(false)" class="btn btn-danger" data-dismiss="modal">لغو</button>
+          &nbsp; &nbsp;
+          <button type="submit" class="btn btn-info">ذخیره</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ngx-loading [show]="loading"></ngx-loading>
+</div>
